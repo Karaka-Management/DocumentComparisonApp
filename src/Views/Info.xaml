@@ -10,7 +10,7 @@
         <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Foreground="#e4f1fa">
             <Run Text="Version: 1.0.0"/>
             <LineBreak/>
-            <Run Text="Website: "/><Hyperlink>http://jingga.app</Hyperlink>
+            <Run Text="Website: "/><Hyperlink>https://jingga.app</Hyperlink>
             <LineBreak/>
             <Run Text="Copyright: Dennis Eichhorn"/>
         </TextBlock>
