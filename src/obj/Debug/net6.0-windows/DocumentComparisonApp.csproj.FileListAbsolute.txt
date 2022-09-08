@@ -19,3 +19,9 @@ C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\refint\Doc
 C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\DocumentComparisonApp.pdb
 C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\DocumentComparisonApp.genruntimeconfig.cache
 C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\ref\DocumentComparisonApp.dll
+C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\DocumentComparisonApp_Content.g.cs
+C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\DocumentComparisonApp.csproj.CopyComplete
+C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\App.baml
+C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\Views\Info.g.cs
+C:\Users\deich\git\DocumentComparisonApp\src\obj\Debug\net6.0-windows\Views\Info.baml
+C:\Users\deich\git\DocumentComparisonApp\bin\Debug\net6.0-windows\favicon.ico

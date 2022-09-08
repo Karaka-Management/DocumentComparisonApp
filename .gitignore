@@ -1,10 +1,5 @@
-*.out
-.directory
-*.cmake
-CMakeCache.txt
-Makefile
-CMakeFiles
-libs
 .vs
-bin/x64/Debug
+obj/
+*.cache
+.directory
 bin/Debug

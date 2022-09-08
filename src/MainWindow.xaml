@@ -5,13 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocumentComparisonApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel LastChildFill="False">
-        <Menu DockPanel.Dock="Top" Height="50"></Menu>
-        <DockPanel>
-            <ScrollViewer/>
-            <ScrollViewer/>
-        </DockPanel>
-
+        Title="Document Comparison" Height="450" Width="800" MinWidth="300" MinHeight="250" Icon="favicon.ico">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="menuExit" Header="Exit" Click="menuExit_Click" />
+            </MenuItem>
+            <MenuItem x:Name="menuInfo" Header="Info" Click="menuInfo_Click"/>
+        </Menu>
+        <Grid DockPanel.Dock="Top" Height="49" Background="#FF343A40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnLoadFile1" Grid.Column="0" Content="Load File" HorizontalAlignment="Left" Margin="10,10,0,10" Click="btnLoadFile1_Click" Width="60"/>
+            <Button x:Name="btnCompareText" Grid.Column="1" Content="Compare" Margin="0,10,0,10" Click="btnCompareText_Click" Width="65"/>
+            <Button x:Name="btnLoadFile2" Grid.Column="2" Content="Load File" HorizontalAlignment="Right" Margin="10,10,10,10" Click="btnLoadFile2_Click" Width="60"/>
+        </Grid>
+        <Grid Background="#FF262A2F" DockPanel.Dock="Bottom" Height="40">
+            <TextBlock x:Name="statTextBlock" HorizontalAlignment="Left" Foreground="#e4f1fa" Margin="10,0,0,0" TextWrapping="Wrap" Text="Words: 0 Added: 0 Deleted: 0" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0">
+                <RichTextBox x:Name="txtLeft"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Column="1">
+                <RichTextBox x:Name="txtRight"/>
+            </ScrollViewer>
+        </Grid>
     </DockPanel>
 </Window>

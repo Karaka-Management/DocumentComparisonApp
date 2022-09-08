@@ -44,6 +44,20 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.18.0, )"
+            },
+            "Open-XML-SDK": {
+              "target": "Package",
+              "version": "[2.9.1, )"
+            },
+            "PdfPig": {
+              "target": "Package",
+              "version": "[0.1.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,0 +1,19 @@
+﻿<Window x:Class="DocumentComparisonApp.Views.Info"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DocumentComparisonApp.Views"
+        mc:Ignorable="d"
+        Title="Info" Height="119" Width="203" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowStyle="ToolWindow" Closing="InfoWindow_Closing">
+    <Grid Background="#343a40">
+        <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Foreground="#e4f1fa">
+            <Run Text="Version: 1.0.0"/>
+            <LineBreak/>
+            <Run Text="Website: "/><Hyperlink>http://jingga.app</Hyperlink>
+            <LineBreak/>
+            <Run Text="Copyright: Dennis Eichhorn"/>
+        </TextBlock>
+        <Button x:Name="InfoClose" Content="Close" HorizontalAlignment="Center" Click="InfoClose_Click" Margin="0,71,0,10" Width="50"/>
+    </Grid>
+</Window>
