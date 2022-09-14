@@ -25,7 +25,7 @@ The application shows in the left text field the original text and in the right 
 
 ## Images
 
-<p align="center"><img src="https://raw.githubusercontent.com/Karaka-Management/DocumentComparisonApp/master/img/Document_Comparison_splash.png" alt="UI"></p>
+<p align="center"><img src="img/Document_Comparison_splash.png" alt="UI"></p>
 
 ## Legal
 
