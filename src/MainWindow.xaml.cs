@@ -194,7 +194,7 @@ namespace DocumentComparisonApp
                 dm[0][j] = 0;
             }
 
-            for (i = 0; i <= n1; ++i) {
+            for (i = 1; i <= n1; ++i) {
                 dm[i] = new int[n2 + 1];
                 dm[i][0] = 0;
             }
