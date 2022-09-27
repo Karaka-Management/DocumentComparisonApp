@@ -46,7 +46,7 @@ jobs:
 
     # Install the .NET workload
     - name: Install .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '6.x'
 
