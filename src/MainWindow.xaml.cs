@@ -59,7 +59,7 @@ namespace DocumentComparisonApp
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Multiselect = false,
-                Filter = "Word files|*.doc;*.docx|Pdf (*.pdf)|*.pdf|Text files|*.*"
+                Filter = "Text files|*.*"
             };
 
             if (openFileDialog.ShowDialog() != true) {
@@ -394,6 +394,7 @@ namespace DocumentComparisonApp
         private void menuExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+            Environment.Exit(0);
         }
     }
 }
