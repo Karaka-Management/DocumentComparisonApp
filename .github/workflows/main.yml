@@ -42,8 +42,3 @@ jobs:
         Appx_Bundle_Platforms: x64
         Appx_Package_Build_Mode: SideloadOnly
         Configuration: ${{ matrix.configuration }}
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
