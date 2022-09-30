@@ -39,7 +39,7 @@ jobs:
       env:
         Appx_Bundle: Always
         Appx_Bundle_Platforms: x64
-        Appx_Package_Build_Mode: CI
+        Appx_Package_Build_Mode: SideloadOnly
         Configuration: ${{ matrix.configuration }}
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
