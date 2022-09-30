@@ -12,6 +12,7 @@ jobs:
   build:
     strategy:
       matrix:
+        targetplatform: [x64]
         configuration: [Demo, Release]
     runs-on: windows-latest
     env:
