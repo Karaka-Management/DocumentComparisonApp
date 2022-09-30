@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     env:
       Solution_Name: DocumentComparisonApp.sln
-      Wap_Project_Path: src\DocumentComparisonApp.csproj
+      Wap_Project_Path: PackagingProject\PackagingProject.wapproj
       Wap_Project_Directory: PackagingProject
     steps:
     - name: Checkout
