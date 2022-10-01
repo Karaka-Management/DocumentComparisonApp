@@ -1,0 +1,81 @@
+name:  CD
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        channel: [Prod_Release, Prod_Demo]
+        targetPlatform: [x86, x64]
+        include:
+          - channel: Prod_Release
+            Configuration: Release
+            ChannelName: Prod_Release
+            DistributionUrl: 
+            MsixPackageId: DocumentComparisonApp.ProdRelease
+            MsixPublisherId: CN=Jingga
+            MsixPackageDisplayName: DocumentComparisonApp (Release)
+          - channel: Prod_Demo
+            Configuration: Demo
+            ChannelName: Prod_Demo
+            DistributionUrl:
+            MsixPackageId: DocumentComparisonApp.ProdDemo
+            MsixPublisherId: CN=Jingga
+            MsixPackageDisplayName: DocumentComparisonApp (Demo)
+    runs-on: windows-latest
+    env:
+      App_Packages_Archive: AppPackages.zip
+      App_Packages_Directory: AppPackages
+      Solution_Path: DocumentComparisonApp.sln
+      Wpf_Project_Path: src\DocumentComparisonApp.csproj
+      Wap_Project_Directory: PackagingProject
+      Wap_Project_Name: PackagingProject.wapproj
+      Actions_Allow_Unsecure_Commands: true
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Install .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name:  Restore the Wpf application to populate the obj folder
+      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.Configuration }}
+        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+    - name: Build the Windows Application Packaging Project (wapproj) for ${{ matrix.ChannelName }}
+      run: msbuild $env:Solution_Path /p:Platform=$env:TargetPlatform /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:BuildMode /p:AppxBundle=$env:AppxBundle
+      env:
+        AppxBundle: Never
+        AppxPackageSigningEnabled: False
+        BuildMode: SideloadOnly
+        Configuration: ${{ matrix.Configuration }}
+        GenerateAppInstallerFile: True
+        TargetPlatform: ${{ matrix.targetplatform }}
+    - name: Create archive
+      run: Compress-Archive -Path $env:Wap_Project_Directory\$env:App_Packages_Directory\* -DestinationPath $env:Wap_Project_Directory\$env:App_Packages_Directory\$env:App_Packages_Archive
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+        release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+        draft: false
+        prerelease: false
+    - name: Update release asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.Wap_Project_Directory }}\${{ env.App_Packages_Directory }}\${{ env.App_Packages_Archive }}
+        asset_name: ${{ env.App_Packages_Archive }}
+        asset_content_type: application/zip
