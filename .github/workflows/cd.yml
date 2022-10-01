@@ -12,14 +12,12 @@ jobs:
           - channel: Prod_Release
             Configuration: Release
             ChannelName: Prod_Release
-            DistributionUrl: 
             MsixPackageId: DocumentComparisonApp.ProdRelease
             MsixPublisherId: CN=Jingga
             MsixPackageDisplayName: DocumentComparisonApp (Release)
           - channel: Prod_Demo
             Configuration: Demo
             ChannelName: Prod_Demo
-            DistributionUrl:
             MsixPackageId: DocumentComparisonApp.ProdDemo
             MsixPublisherId: CN=Jingga
             MsixPackageDisplayName: DocumentComparisonApp (Demo)
@@ -38,9 +36,9 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: 6.0.x
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
     - name:  Restore the Wpf application to populate the obj folder
@@ -55,7 +53,7 @@ jobs:
         AppxPackageSigningEnabled: False
         BuildMode: SideloadOnly
         Configuration: ${{ matrix.Configuration }}
-        GenerateAppInstallerFile: True
+        GenerateAppInstallerFile: False
         TargetPlatform: ${{ matrix.targetplatform }}
     - name: Create archive
       run: Compress-Archive -Path $env:Wap_Project_Directory\$env:App_Packages_Directory\* -DestinationPath $env:Wap_Project_Directory\$env:App_Packages_Directory\$env:App_Packages_Archive
