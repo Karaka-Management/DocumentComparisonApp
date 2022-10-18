@@ -24,12 +24,12 @@ jobs:
     - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
     - run: dir bin/Release/net6.0-windows
-    - run: dir bin/Release/net6.0-windows/win-64
-    - run: dir bin/Release/net6.0-windows/win-64/publish
+    - run: dir bin/Release/net6.0-windows/win-x64
+    - run: dir bin/Release/net6.0-windows/win-x64/publish
     - run: dir src
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "bin/Release/net6.0-windows/win-64/publish/*.exe"
+        artifacts: "bin/Release/net6.0-windows/win-x64/publish/*.exe"
         tag: ${{ github.event.inputs.tags }}
         token: ${{ secrets.GITHUB_TOKEN }}
         artifactErrorsFailBuild: true
