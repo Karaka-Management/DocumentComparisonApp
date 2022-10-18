@@ -1,6 +1,11 @@
 name:  CD
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tag'     
+        required: true
 
 env:
   PROJECT_PATH: src/DocumentComparisonApp.csproj
@@ -8,6 +13,8 @@ env:
 jobs:
   build: 
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-dotnet@v3
@@ -16,3 +23,8 @@ jobs:
     - run: dotnet restore ${{env.PROJECT_PATH}}
     - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "bin/Release/net6.0-windows/win-64/publish/*.exe"
+        tag: ${{ github.event.inputs.tags }}
+        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
