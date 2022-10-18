@@ -20,10 +20,13 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 3.1.x
-    - run: dir
     - run: dotnet restore ${{env.PROJECT_PATH}}
     - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+    - run: dir bin/Release/net6.0-windows
+    - run: dir bin/Release/net6.0-windows/win-64
+    - run: dir bin/Release/net6.0-windows/win-64/publish
+    - run: dir src
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "bin/Release/net6.0-windows/win-64/publish/*.exe"
