@@ -8,7 +8,6 @@ on:
         required: true
 
 env:
-  PROJECT_PATH: src/DocumentComparisonApp.csproj
   APP_NAME: DocumentComparisonApp
 
 jobs:
@@ -21,12 +20,12 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 3.1.x
-    - run: dotnet restore ${{env.PROJECT_PATH}}
-    - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
-    - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
-    - run: dotnet build ${{env.PROJECT_PATH}} -c Demo --no-restore
-    - run: dotnet publish ${{env.PROJECT_PATH}} -c Demo --self-contained -r win-x64 -p:PublishSingleFile=true
-    - run: rename bin/Demo/net6.0-windows/win-x64/publish/${{env.APP_NAME}}.exe bin/Demo/net6.0-windows/win-x64/publish/Demo_${{env.APP_NAME}}.exe
+    - run: dotnet restore src/${{env.APP_NAME}}.csproj
+    - run: dotnet build src/${{env.APP_NAME}}.csproj -c Release --no-restore
+    - run: dotnet publish src/${{env.APP_NAME}}.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+    - run: dotnet build src/${{env.APP_NAME}}.csproj -c Demo --no-restore
+    - run: dotnet publish src/${{env.APP_NAME}}.csproj -c Demo --self-contained -r win-x64 -p:PublishSingleFile=true
+    - run: Rename-Item -Path "bin/Demo/net6.0-windows/win-x64/publish/${{env.APP_NAME}}.exe" -NewName "bin/Demo/net6.0-windows/win-x64/publish/Demo_${{env.APP_NAME}}.exe"
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "bin/Release/net6.0-windows/win-x64/publish/*.exe,bin/Demo/net6.0-windows/win-x64/publish/*.exe"
