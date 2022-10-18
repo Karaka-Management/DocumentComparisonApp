@@ -27,4 +27,5 @@ jobs:
       with:
         artifacts: "bin/Release/net6.0-windows/win-64/publish/*.exe"
         tag: ${{ github.event.inputs.tags }}
-        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifactErrorsFailBuild: true
