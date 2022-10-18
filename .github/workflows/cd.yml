@@ -9,6 +9,7 @@ on:
 
 env:
   PROJECT_PATH: src/DocumentComparisonApp.csproj
+  APP_NAME: DocumentComparisonApp
 
 jobs:
   build: 
@@ -23,14 +24,19 @@ jobs:
     - run: dotnet restore ${{env.PROJECT_PATH}}
     - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
     - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
-    - run: dir bin/Release/net6.0-windows
-    - run: dir bin/Release/net6.0-windows/win-x64
-    - run: dir bin/Release/net6.0-windows/win-x64/publish
-    - run: dir src
+    - run: dotnet build ${{env.PROJECT_PATH}} -c Demo --no-restore
+    - run: dotnet publish ${{env.PROJECT_PATH}} -c Demo --self-contained -r win-x64 -p:PublishSingleFile=true
+    - run: rename bin/Demo/net6.0-windows/win-x64/publish/${{env.APP_NAME}}.exe bin/Demo/net6.0-windows/win-x64/publish/Demo_${{env.APP_NAME}}.exe
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "bin/Release/net6.0-windows/win-x64/publish/*.exe"
+        artifacts: "bin/Release/net6.0-windows/win-x64/publish/*.exe,bin/Demo/net6.0-windows/win-x64/publish/*.exe"
         tag: ${{ github.event.inputs.tags }}
         token: ${{ secrets.GITHUB_TOKEN }}
         artifactErrorsFailBuild: true
+    - uses: dev-drprasad/delete-older-releases@v0.2.0
+      with:
+        keep_latest: 3
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
